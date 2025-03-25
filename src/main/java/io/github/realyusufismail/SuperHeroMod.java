@@ -19,20 +19,26 @@
 package io.github.realyusufismail;
 
 import com.mojang.logging.LogUtils;
+import io.github.realyusufismail.config.Config;
+import io.github.realyusufismail.events.EventRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.IModBusEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
-@Mod(SuperHeroMod.MODID)
+@Mod(SuperHeroMod.MOD_ID)
 public class SuperHeroMod {
-    public static final String MODID = "superheromod";
+    public static final String MOD_ID = "superheromod";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public SuperHeroMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
+
+        // register
+        EventRegistries.init((IModBusEvent) modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
