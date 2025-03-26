@@ -28,6 +28,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 @Mod(SuperHeroMod.MOD_ID)
@@ -35,7 +36,7 @@ public class SuperHeroMod {
     public static final String MOD_ID = "superheromod";
     public static final Logger logger = LogUtils.getLogger();
 
-    public SuperHeroMod(IEventBus bus, ModContainer modContainer) {
+    public SuperHeroMod(IEventBus bus, @NotNull ModContainer modContainer) {
 
         // register
         SuperHeroModRegistries.init(bus);
