@@ -20,31 +20,36 @@ package io.github.realyusufismail;
 
 import com.mojang.logging.LogUtils;
 import io.github.realyusufismail.config.Config;
+import io.github.realyusufismail.data.DataGenerator;
 import io.github.realyusufismail.events.EventRegistries;
+import io.github.realyusufismail.events.SuperHeroModRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.IModBusEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
 @Mod(SuperHeroMod.MOD_ID)
 public class SuperHeroMod {
     public static final String MOD_ID = "superheromod";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger logger = LogUtils.getLogger();
 
-    public SuperHeroMod(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
+    public SuperHeroMod(IEventBus bus, ModContainer modContainer) {
 
         // register
-        EventRegistries.init((IModBusEvent) modEventBus);
+        SuperHeroModRegistries.init(bus);
+
+        // listeners
+        bus.addListener(DataGenerator::gatherData);
+        bus.addListener(EventRegistries::init);
+        bus.addListener(this::commonSetup);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        LOGGER.info("HELLO FROM COMMON SETUP");
+        logger.info("HELLO FROM COMMON SETUP");
 
         if (Config.logDirtBlock) {
             // TODO: Use to recipe book

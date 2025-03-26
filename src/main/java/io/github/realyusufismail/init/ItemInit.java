@@ -16,14 +16,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */ 
-package io.github.realyusufismail.events;
+package io.github.realyusufismail.init;
 
-import io.github.realyusufismail.config.Config;
-import net.neoforged.fml.event.config.ModConfigEvent;
+import io.github.realyusufismail.events.SuperHeroModRegistries;
+import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class EventRegistries {
+public class ItemInit {
+    private static final DeferredRegister.Items ITEMS = SuperHeroModRegistries.ITEMS;
 
-    public static void init(ModConfigEvent eventBus) {
-        Config.onLoad(eventBus);
+    public static DeferredItem<Item> MARVEL_LOGO;
+
+    public static void init() {
+        MARVEL_LOGO = ITEMS.registerItem("marvel_logo", Item::new);
     }
 }
