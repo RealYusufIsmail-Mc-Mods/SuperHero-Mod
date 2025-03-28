@@ -27,8 +27,12 @@ public class ItemInit {
     private static final DeferredRegister.Items ITEMS = SuperHeroModRegistries.ITEMS;
 
     public static DeferredItem<Item> MARVEL_LOGO;
+    public static DeferredItem<Item> MJOLNIR;
+    public static DeferredItem<Item> STORMBREAKER;
 
     public static void init() {
         MARVEL_LOGO = ITEMS.registerItem("marvel_logo", Item::new);
+        MJOLNIR = ITEMS.registerItem("mjolnir", Item::new);
+        STORMBREAKER = ITEMS.registerItem("stormbreaker", Item::new);
     }
 }

@@ -38,6 +38,8 @@ public class ModEnLangProvider extends LanguageProvider {
     protected void addTranslations() {
         // Items
         item(ItemInit.MARVEL_LOGO, "Marvel Logo");
+        item(ItemInit.MJOLNIR, "Mjolnir");
+        item(ItemInit.STORMBREAKER, "Stormbreaker");
 
         // Creative Menus
         add(SuperHeroModRegistries.SuperHeroModCreativeModeTabs.MARVEL_TAB_NAME.getString(), "Marvel Item Group");
