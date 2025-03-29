@@ -18,11 +18,34 @@
  */ 
 package io.github.realyusufismail.items;
 
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-public class Mjolnir extends SwordItem {
-    public Mjolnir(ToolMaterial material, float attackDamage, float attackSpeed, Properties properties) {
-        super(material, attackDamage, attackSpeed, properties);
+/**
+ * @see net.minecraft.world.item.TridentItem
+ */
+public class Mjolnir extends Item {
+
+    public Mjolnir(ResourceKey<Item> id) {
+        super(new Properties().attributes(createAttributes()).setId(id));
+    }
+
+    public static ItemAttributeModifiers createAttributes() {
+        return ItemAttributeModifiers.builder()
+                .add(
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(
+                                BASE_ATTACK_DAMAGE_ID, (double) 8.0F, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
+                .add(
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(
+                                BASE_ATTACK_SPEED_ID, (double) -1.9, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
+                .build();
     }
 }

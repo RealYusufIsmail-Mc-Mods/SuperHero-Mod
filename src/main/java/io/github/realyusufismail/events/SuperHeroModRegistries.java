@@ -19,10 +19,12 @@
 package io.github.realyusufismail.events;
 
 import io.github.realyusufismail.SuperHeroMod;
+import io.github.realyusufismail.init.EntityTypeInit;
 import io.github.realyusufismail.init.ItemInit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
@@ -35,17 +37,27 @@ public class SuperHeroModRegistries {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MOD_ID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
-
     public static DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
+    public static DeferredRegister<EntityType<?>> ENTITY_TYPES =
+            DeferredRegister.create(Registries.ENTITY_TYPE, MOD_ID);
 
-    public static void init(IEventBus modEventBus) {
+    private static void init() {
         ItemInit.init();
         SuperHeroModCreativeModeTabs.init();
+        EntityTypeInit.init();
+    }
 
+    private static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        ENTITY_TYPES.register(modEventBus);
+    }
+
+    public static void init(IEventBus modEventBus) {
+        init();
+        register(modEventBus);
     }
 
     public static class SuperHeroModCreativeModeTabs {
